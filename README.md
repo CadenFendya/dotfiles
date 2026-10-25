@@ -22,6 +22,10 @@ wallpapers, builds `fetch` from source, turns on Bluetooth, and installs VS Code
 extensions and Claude Code. Anything it replaces is backed up to
 `~/.dotfiles-backup/`.
 
+## Keybinds
+
+See [KEYBINDS.md](KEYBINDS.md).
+
 ## Day to day
 
 Configs in `~/.config` are symlinks into `~/dotfiles`, so edits land in the repo
