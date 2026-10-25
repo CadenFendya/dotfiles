@@ -1,0 +1,5 @@
+*.bak*
+*.pre-*
+*.overwritten
+*.csv
+.env

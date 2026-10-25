@@ -1,0 +1,8 @@
+#!/bin/bash
+# Usage: setwall /path/to/image
+# Sets the wallpaper now and saves it in hyprland.lua for next login.
+img=$(realpath "$1") || exit 1
+pkill swaybg
+setsid swaybg -m fill -i "$img" &>/dev/null &
+sed -i --follow-symlinks "s|swaybg -m fill -i [^\"]*|swaybg -m fill -i $img|" ~/.config/hypr/hyprland.lua
+echo "Wallpaper set to $img"

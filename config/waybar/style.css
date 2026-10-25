@@ -1,0 +1,95 @@
+* {
+    font-family: "Iosevka Nerd Font", "Iosevka", monospace;
+    font-weight: 800;
+    font-size: 13px;
+    color: #ffffff;
+}
+
+window#waybar {
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    border-radius: 0;
+    margin: 0px;
+    padding: 0px 0px;
+}
+
+/* WORKSPACES */
+
+#workspaces button {
+    padding: 0px 1px;
+    margin: 3px 2px;
+    border-radius: 0;
+    background: transparent;
+    border: none;
+    color: #777777;
+}
+
+/* active workspace */
+#workspaces button.active {
+    color: #ffffff;
+}
+
+/* hover */
+#workspaces button:hover {
+    background: #222222;
+}
+
+/* urgent */
+#workspaces button.urgent {
+    background: #444444;
+}
+
+#bluetooth {
+    padding: 0 4px;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    color: #777777;
+}
+
+#mpris {
+    font-weight: 700;
+    padding: 0 4px;
+}
+
+/* RIGHT SIDE STATES */
+
+#battery.warning {
+    background: rgba(246, 193, 119, 0.15);
+    padding: 1px 4px;
+}
+
+#battery.critical {
+    background: rgba(235, 111, 146, 0.18);
+    padding: 1px 4px;
+}
+
+#wireplumber.muted {
+    opacity: 0.6;
+}
+
+/*  TOOLTIP  */
+
+tooltip {
+    background: #000000;
+    border: none;
+}
+
+tooltip label {
+    color: #ffffff;
+    font-size: 11px;
+}
+
+#custom-launcher {
+}
+
+#custom-cpucat,
+#custom-cpucat * {
+  font-family: "Waycat", monospace;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  padding-left: 5px;
+  padding-right: 8px;
+}

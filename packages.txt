@@ -1,0 +1,35 @@
+# One package per line. Lines starting with # are ignored.
+# Hyprland desktop
+hyprland
+hyprpaper
+waybar
+rofi
+wofi
+mako
+swaybg
+swww
+waypaper
+# Apps
+foot
+kitty
+dolphin
+firefox
+code
+flameshot
+pavucontrol
+blueman
+fastfetch
+# Helpers used by keybinds / waybar scripts
+brightnessctl
+playerctl
+wireplumber
+libnotify
+bluez
+# Build tools (for fetch)
+gcc
+make
+git
+curl
+tar
+xz
+fontconfig
