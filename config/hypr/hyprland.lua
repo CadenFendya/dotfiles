@@ -387,3 +387,10 @@ hl.window_rule({
     move  = "20 monitor_h-120",
     float = true,
 })
+
+-- See-through Obsidian, matching foot's alpha = 0.8
+hl.window_rule({
+    name    = "obsidian-opacity",
+    match   = { class = "^md\\.obsidian\\.Obsidian$" },
+    opacity = "0.8 0.8",
+})
