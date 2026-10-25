@@ -23,9 +23,14 @@ link() {
 }
 
 if [ "${1:-}" != "--links-only" ]; then
-    step "Enabling repos (Hyprland COPR, VS Code)"
+    step "Enabling repos (Hyprland COPR, RPM Fusion, VS Code)"
     sudo dnf install -y dnf-plugins-core
     sudo dnf copr enable -y sdegler/hyprland
+    if ! rpm -q rpmfusion-free-release rpmfusion-nonfree-release >/dev/null; then
+        sudo dnf install -y \
+            "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
+            "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+    fi
     if [ ! -f /etc/yum.repos.d/vscode.repo ]; then
         sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
         printf '[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc\n' \
@@ -35,10 +40,14 @@ if [ "${1:-}" != "--links-only" ]; then
     step "Installing packages"
     sudo dnf upgrade -y --refresh
     grep -vE '^\s*(#|$)' "$DOT/packages.txt" | xargs sudo dnf install -y
+
+    step "Installing flatpaks"
+    sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+    grep -vE '^\s*(#|$)' "$DOT/flatpaks.txt" | xargs -r sudo flatpak install -y --noninteractive flathub
 fi
 
 step "Linking configs"
-for d in hypr waybar rofi foot fastfetch fetch waypaper images; do
+for d in hypr waybar rofi foot fastfetch fetch waypaper images cava; do
     link "config/$d" "$HOME/.config/$d"
 done
 link config/gtk3-bookmarks "$HOME/.config/gtk-3.0/bookmarks"

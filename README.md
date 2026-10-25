@@ -15,7 +15,8 @@ My Fedora + Hyprland setup (lavender rice: waybar, rofi, foot, fastfetch, fetch)
 
 3. Reboot, choose **Hyprland** at the login screen (gear icon), log in.
 
-The script installs every package in `packages.txt`, symlinks the configs from
+The script enables RPM Fusion, installs every package in `packages.txt` and
+every Flathub app in `flatpaks.txt`, symlinks the configs from
 this repo into `~/.config`, installs fonts (downloads Iosevka Nerd Font) and
 wallpapers, builds `fetch` from source, turns on Bluetooth, and installs VS Code
 extensions and Claude Code. Anything it replaces is backed up to

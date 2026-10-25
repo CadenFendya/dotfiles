@@ -1,0 +1,2 @@
+# Flathub app IDs, one per line. Lines starting with # are ignored.
+dev.vencord.Vesktop

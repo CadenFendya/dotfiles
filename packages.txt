@@ -19,6 +19,9 @@ flameshot
 pavucontrol
 blueman
 fastfetch
+cava
+gh
+flatpak
 # Helpers used by keybinds / waybar scripts
 brightnessctl
 playerctl
