@@ -36,7 +36,7 @@ hl.monitor({
 local terminal    = "foot"
 local fileManager = "dolphin"
 local menu        = "rofi -show drun"
-local browser     = "firefox"
+local browser     = "flatpak run app.zen_browser.zen"
 
 -------------------
 ---- AUTOSTART ----
