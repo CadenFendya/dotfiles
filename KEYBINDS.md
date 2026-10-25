@@ -21,6 +21,7 @@ All of these live in [`config/hypr/hyprland.lua`](config/hypr/hyprland.lua).
 |---|---|
 | Super + Q | Close window |
 | Super + V | Toggle floating |
+| Super + F | Toggle fullscreen |
 | Super + P | Toggle pseudo-tiling |
 | Super + J | Flip split direction |
 | Super + ← → ↑ ↓ | Move focus |

@@ -14,6 +14,7 @@ foot
 kitty
 dolphin
 firefox
+thunderbird
 code
 flameshot
 pavucontrol
