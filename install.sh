@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Rebuilds the whole setup on a fresh Fedora install.
-#   git clone https://github.com/<you>/dotfiles ~/dotfiles && ~/dotfiles/install.sh
+#   git clone https://github.com/CadenFendya/dotfiles ~/dotfiles && ~/dotfiles/install.sh
 # Safe to re-run. Existing files get moved to ~/.dotfiles-backup/<timestamp>/.
 set -euo pipefail
 
@@ -47,7 +47,7 @@ if [ "${1:-}" != "--links-only" ]; then
 fi
 
 step "Linking configs"
-for d in hypr waybar rofi foot fastfetch fetch waypaper images cava; do
+for d in hypr waybar rofi foot fastfetch fetch waypaper images cava nvim btop; do
     link "config/$d" "$HOME/.config/$d"
 done
 link config/gtk3-bookmarks "$HOME/.config/gtk-3.0/bookmarks"
@@ -78,6 +78,15 @@ if ! command -v fetch >/dev/null; then
     make -C "$tmp/fetch"
     install -Dm755 "$tmp/fetch/fetch" "$HOME/.local/bin/fetch"
     rm -rf "$tmp"
+fi
+
+step "lazygit"
+if ! command -v lazygit >/dev/null; then
+    case "$(uname -m)" in aarch64) arch=arm64 ;; *) arch=x86_64 ;; esac
+    ver="$(curl -fsSL https://api.github.com/repos/jesseduffield/lazygit/releases/latest | grep -Po '"tag_name": *"v\K[^"]+')"
+    mkdir -p "$HOME/.local/bin"
+    curl -fL "https://github.com/jesseduffield/lazygit/releases/download/v${ver}/lazygit_${ver}_linux_${arch}.tar.gz" \
+        | tar -xz -C "$HOME/.local/bin" lazygit
 fi
 
 step "Bluetooth"

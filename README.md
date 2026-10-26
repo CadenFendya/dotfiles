@@ -1,6 +1,6 @@
 # dotfiles
 
-My Fedora + Hyprland setup (lavender rice: waybar, rofi, foot, fastfetch, fetch).
+My Fedora + Hyprland setup (lavender rice: waybar, rofi, foot, fastfetch, fetch, plus LazyVim and btop).
 
 ## Fresh install
 
@@ -9,7 +9,7 @@ My Fedora + Hyprland setup (lavender rice: waybar, rofi, foot, fastfetch, fetch)
 
    ```bash
    sudo dnf install -y git
-   git clone https://github.com/USERNAME/dotfiles ~/dotfiles
+   git clone https://github.com/CadenFendya/dotfiles ~/dotfiles
    ~/dotfiles/install.sh
    ```
 
@@ -18,7 +18,7 @@ My Fedora + Hyprland setup (lavender rice: waybar, rofi, foot, fastfetch, fetch)
 The script enables RPM Fusion, installs every package in `packages.txt` and
 every Flathub app in `flatpaks.txt`, symlinks the configs from
 this repo into `~/.config`, installs fonts (downloads Iosevka Nerd Font) and
-wallpapers, builds `fetch` from source, turns on Bluetooth, and installs VS Code
+wallpapers, builds `fetch` from source, installs lazygit, turns on Bluetooth, and installs VS Code
 extensions and Claude Code. Anything it replaces is backed up to
 `~/.dotfiles-backup/`.
 

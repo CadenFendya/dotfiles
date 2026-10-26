@@ -23,12 +23,22 @@ fastfetch
 cava
 gh
 flatpak
+btop
+cowsay
 # Helpers used by keybinds / waybar scripts
 brightnessctl
 playerctl
 wireplumber
 libnotify
 bluez
+# Neovim (LazyVim) + dev toolchains
+neovim
+ripgrep
+fd-find
+golang
+clang-tools-extra
+nodejs
+npm
 # Build tools (for fetch)
 gcc
 make

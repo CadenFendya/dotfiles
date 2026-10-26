@@ -1,3 +1,4 @@
 # Flathub app IDs, one per line. Lines starting with # are ignored.
 dev.vencord.Vesktop
 app.zen_browser.zen
+md.obsidian.Obsidian
