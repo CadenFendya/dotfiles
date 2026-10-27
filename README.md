@@ -45,3 +45,24 @@ This was built in a VMware VM. On a real PC, in `config/hypr/hyprland.lua`:
 - `no_hardware_cursors = true` was a VMware workaround; it's harmless, but you
   can set it to `false` (keep it `true` if you have an NVIDIA card).
 - NVIDIA GPU: enable RPM Fusion and install `akmod-nvidia` before using Hyprland.
+
+## Controller not working in Steam games
+
+Symptom: the controller works in Steam (Xbox button opens the overlay) but does
+nothing in any game. Every game here runs through Proton.
+
+Cause: OpenRGB's udev rules make the NZXT Kraken M22 / Smart Device V2 and MSI
+Mystic Light hidraw devices readable by my user. Proton's `winebus` hangs while
+setting them up (`winebus failed to start: 1053` in a `PROTON_LOG=1` log), so it
+never gets to the controller.
+
+Fix: `config/hypr/hyprland.lua` sets
+
+```
+PROTON_DISABLE_HIDRAW=0x1E71/0x2006,0x1E71/0x1715,0x1462/0x7D31
+```
+
+so Proton skips those devices. Log out and back in after changing it. If new
+RGB/cooler hardware breaks controllers again, add its `VID/PID` (from `lsusb`)
+to that list. To debug, set a game's launch options to
+`PROTON_LOG=1 WINEDEBUG=+hid,+plugplay %command%` and read `~/steam-<appid>.log`.

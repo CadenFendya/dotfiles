@@ -70,6 +70,9 @@ hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 hl.env("GDK_BACKEND", "wayland")
 
+-- Proton: skip NZXT Kraken/Smart Device + MSI Mystic Light hidraw (they hang winebus and break controllers)
+hl.env("PROTON_DISABLE_HIDRAW", "0x1E71/0x2006,0x1E71/0x1715,0x1462/0x7D31")
+
 
 -----------------------
 ----- PERMISSIONS -----
