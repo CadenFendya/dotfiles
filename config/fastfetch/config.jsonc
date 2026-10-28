@@ -1,88 +1,35 @@
+// Tokyo Night theme (matches kitty current-theme.conf)
 {
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-  "logo": {
-    "source": "~/.config/images/arch.txt",
-    "color": {
-      "1": "#C4A7E7"
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "source": "$HOME/.config/fastfetch/ascii.txt",
+        "color": { "1": "#7aa2f7" },  // blue
+        "padding": { "top": 1, "left": 2, "right": 4 }
     },
-    "padding": {
-      "top": 2,
-      "right": 6,
-      "left": 2
-    }
-  },
-  "display": {
-    "separator": " "
-  },
-  "modules": [
-    "break",
-    "break",
-    {
-      "type": "title",
-      "keyWidth": 10,
-      "color": "#C4A7E7"
+    "display": {
+        "separator": "  ",
+        "color": { "keys": "#7aa2f7", "title": "#bb9af7", "output": "#c0caf5" },
+        "key": { "width": 12 }
     },
-    "break",
-    {
-      "type": "os",
-      "key": " ",
-      "keyColor": "#c4a7e7",
-      "color": "#e0def4"
-    },
-    {
-      "type": "host",
-      "key": "🖥 ",
-      "keyColor": "#c4a7e7",
-      "color": "#e0def4"
-    },
-    {
-      "type": "shell",
-      "key": ">_",
-      "keyColor": "#c4a7e7",
-      "color": "#e0def4"
-    },
-    {
-      "type": "terminal",
-      "key": " ",
-      "keyColor": "#c4a7e7",
-      "color": "#e0def4"
-    },
-    {
-      "type": "wm",
-      "format": "{} (wayland)",
-      "key": " ",
-      "keyColor": "#c4a7e7",
-      "color": "#e0def4"
-    },
-    {
-      "type": "cpu",
-      "key": "󰍛 ",
-      "keyColor": "#c4a7e7",
-      "color": "#e0def4"
-    },
-    {
-      "type": "gpu",
-      "key": "󰢮 ",
-      "keyColor": "#c4a7e7",
-      "color": "#e0def4"
-    },
-    {
-      "type": "memory",
-      "key": "🎟 ",
-      "keyColor": "#c4a7e7",
-      "color": "#e0def4",
-      "format": "{} {}"
-    },
-    
-    {
-      "type": "uptime",
-      "key": " ",
-      "keyColor": "#c4a7e7",
-      "color": "#e0def4"
-    },
-    
-    "break",
-    "break",
-    "break"
-  ]
+    "modules": [
+        "break",
+        "break",
+        "break",
+        { "type": "title", "color": { "user": "#bb9af7", "at": "#565f89", "host": "#7dcfff" } },
+        { "type": "custom", "format": "\u001b[38;2;86;95;137m──────────────────────────────────────" },
+        { "type": "os",           "key": " os",       "keyColor": "#7aa2f7" },
+        { "type": "kernel",       "key": " kernel",   "keyColor": "#bb9af7" },
+        { "type": "packages",     "key": " pkgs",     "keyColor": "#7dcfff" },
+        { "type": "shell",        "key": " shell",    "keyColor": "#9ece6a" },
+        { "type": "terminal",     "key": " term",     "keyColor": "#e0af68" },
+        { "type": "wm",           "key": " wm",       "keyColor": "#7aa2f7" },
+        { "type": "cursor",       "key": " cursor",   "keyColor": "#bb9af7" },
+        { "type": "terminalfont", "key": " font",     "keyColor": "#7dcfff" },
+        { "type": "uptime",       "key": " uptime",   "keyColor": "#9ece6a" },
+        { "type": "datetime",     "key": " date",     "keyColor": "#e0af68", "format": "{1}-{3}-{11}" },
+        { "type": "media",        "key": "󰝚 media",    "keyColor": "#7aa2f7" },
+        { "type": "player",       "key": " player",   "keyColor": "#bb9af7" },
+        { "type": "custom", "format": "\u001b[38;2;86;95;137m──────────────────────────────────────" },
+        "break"
+    ]
 }

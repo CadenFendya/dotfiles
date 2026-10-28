@@ -39,31 +39,52 @@ window#waybar {
     background: #444444;
 }
 
-#bluetooth {
-    padding: 0 4px;
-}
 
 #bluetooth.disabled,
 #bluetooth.off {
     color: #777777;
 }
 
+
+/* RIGHT SIDE: same padding and hover on every module */
+
+#custom-tray-toggle,
+#bluetooth,
+#wireplumber,
+#battery,
+#mpris,
+#clock,
+#custom-power {
+    padding: 0 7px;
+}
+
 #mpris {
     font-weight: 700;
-    padding: 0 4px;
+}
+
+/* match the workspace number's distance from the left edge */
+#custom-power {
+    padding-right: 11px;
+}
+
+#custom-tray-toggle:hover,
+#bluetooth:hover,
+#wireplumber:hover,
+#mpris:hover,
+#custom-power:hover {
+    background: #222222;
 }
 
 /* RIGHT SIDE STATES */
 
 #battery.warning {
-    background: rgba(246, 193, 119, 0.15);
-    padding: 1px 4px;
+    background: rgba(210, 153, 34, 0.18);
 }
 
 #battery.critical {
-    background: rgba(235, 111, 146, 0.18);
-    padding: 1px 4px;
+    background: rgba(255, 123, 114, 0.18);
 }
+
 
 #wireplumber.muted {
     opacity: 0.6;
@@ -93,3 +114,36 @@ tooltip label {
   padding-left: 5px;
   padding-right: 8px;
 }
+
+/*  TRAY MENUS  */
+
+#tray menu,
+menu {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #333333;
+    padding: 4px 0;
+}
+
+#tray menu menuitem,
+menu menuitem {
+    background: transparent;
+    color: #ffffff;
+    padding: 4px 10px;
+}
+
+#tray menu menuitem:hover,
+menu menuitem:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+menu menuitem:disabled,
+menu menuitem:disabled label {
+    color: #777777;
+}
+
+menu separator {
+    background: rgba(255, 255, 255, 0.15);
+    min-height: 1px;
+    margin: 4px 0;
+}
+

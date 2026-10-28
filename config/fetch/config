@@ -1,5 +1,5 @@
-# fetch (github.com/areofyl/fetch) — themed to match the fastfetch rice
-# lavender palette: 183 ≈ #c4a7e7, 141 = deeper purple
+# fetch (github.com/areofyl/fetch) — themed to match kitty (GitHub Dark)
+# 75 ≈ #58a6ff blue, 141 ≈ #bc8cff purple
 
 os
 host
@@ -11,9 +11,9 @@ gpu
 memory
 uptime
 
-label_color=183
+label_color=75
 logo_outer=141
-logo_inner=183
+logo_inner=75
 shading_mode=ascii
 light=top-left
 spin=xy

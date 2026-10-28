@@ -28,3 +28,6 @@ unset rc
 if [[ $- == *i* && -t 0 && -t 1 ]] && command -v fetch >/dev/null; then
     fetch
 fi
+
+# Minimal prompt: current dir + arrow (blue / purple from the kitty theme)
+PS1='\[\e[34m\]\w \[\e[35m\]❯\[\e[0m\] '

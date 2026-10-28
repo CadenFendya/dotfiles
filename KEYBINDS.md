@@ -7,7 +7,7 @@ All of these live in [`config/hypr/hyprland.lua`](config/hypr/hyprland.lua).
 
 | Keys | Action |
 |---|---|
-| Super + Enter | Terminal (foot) |
+| Super + Enter | Terminal (kitty) |
 | Super + R | App launcher (rofi) |
 | Super + Space | App launcher (rofi) |
 | Super + B | Browser (firefox) |

@@ -22,9 +22,10 @@
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 hl.monitor({
     output   = "",
-    mode     = "preferred", -- follows the VMware window size
+    mode     = "1920x1080@240",
     position = "auto",
     scale    = 1,           -- "auto" guessed a HiDPI scale in the VM (too zoomed)
+    transform = 2,          -- rotate 180 degrees
 })
 
 
@@ -33,7 +34,7 @@ hl.monitor({
 ---------------------
 
 -- Set programs that you use
-local terminal    = "foot"
+local terminal    = "kitty"
 local fileManager = "dolphin"
 local menu        = "rofi -show drun"
 local browser     = "flatpak run app.zen_browser.zen"
@@ -48,7 +49,7 @@ local browser     = "flatpak run app.zen_browser.zen"
 -- Or execute your favorite apps at launch like this:
 --
 hl.on("hyprland.start", function ()
-   hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland")
+   hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY HYPRLAND_INSTANCE_SIGNATURE XDG_CURRENT_DESKTOP=Hyprland && systemctl --user start hyprland-session.target")
    hl.exec_cmd("mako")
    hl.exec_cmd("waybar")
    hl.exec_cmd("swww-daemon & sleep 1; waypaper --restore")
@@ -69,6 +70,15 @@ hl.env("XCURSOR_THEME", "Adwaita")
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 hl.env("GDK_BACKEND", "wayland")
+
+-- Dark mode for GTK3 apps (blueman, waypaper, solaar) and Qt5 apps (openrgb)
+hl.env("GTK_THEME", "Adwaita:dark")
+hl.env("QT_QPA_PLATFORMTHEME", "gtk3")
+
+-- NVIDIA (proprietary driver)
+hl.env("LIBVA_DRIVER_NAME", "nvidia")
+hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
+hl.env("NVD_BACKEND", "direct")
 
 -- Proton: skip NZXT Kraken/Smart Device + MSI Mystic Light hidraw (they hang winebus and break controllers)
 hl.env("PROTON_DISABLE_HIDRAW", "0x1E71/0x2006,0x1E71/0x1715,0x1462/0x7D31")
@@ -106,15 +116,15 @@ hl.config({
         border_size = 0,
 
         col = {
-            active_border   = "rgba(c4a7e7ff)",
-            inactive_border = "rgba(393552ff)",
+            active_border   = "rgba(2f81f7ff)",
+            inactive_border = "rgba(30363dff)",
         },
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
         resize_on_border = false,
 
         -- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
-        allow_tearing = false,
+        allow_tearing = true,
 
         layout = "dwindle",
     },
@@ -126,6 +136,9 @@ hl.config({
         -- Change transparency of focused and unfocused windows
         active_opacity   = 1.0,
         inactive_opacity = 1.0,
+
+        -- Screen-wide color vibrance (set the level inside the shader)
+        screen_shader = os.getenv("HOME") .. "/.config/hypr/shaders/vibrance.frag",
 
         shadow = {
             enabled      = true,
@@ -282,6 +295,7 @@ hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind("ALT + Z", hl.dsp.exec_cmd("flameshot gui"))
 hl.bind("ALT + bracketright", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"))
 hl.bind("ALT + bracketleft",  hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"))
+hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("pidof hyprlock || hyprlock"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
@@ -382,6 +396,15 @@ hl.layer_rule({
     ignore_alpha = 0,
 })
 
+-- Waybar flyouts (volume / hidden tray icons) drop down from under the bar
+hl.layer_rule({
+    name         = "waybar-flyout",
+    match        = { namespace = "^waybar-flyout$" },
+    animation    = "slide top",
+    blur         = true,
+    ignore_alpha = 0,
+})
+
 -- Hyprland-run windowrule
 hl.window_rule({
     name  = "move-hyprland-run",
@@ -391,9 +414,23 @@ hl.window_rule({
     float = true,
 })
 
--- See-through Obsidian, matching foot's alpha = 0.8
+-- See-through Obsidian, matching kitty's background_opacity = 0.8
 hl.window_rule({
     name    = "obsidian-opacity",
     match   = { class = "^md\\.obsidian\\.Obsidian$" },
+    opacity = "0.8 0.8",
+})
+
+-- Let Steam games and gamescope tear (no vsync) for lower input lag
+hl.window_rule({
+    name      = "games-immediate",
+    match     = { class = "^(steam_app_.*|gamescope)$" },
+    immediate = true,
+})
+
+-- See-through system utilities (bluetooth, volume, wallpaper, mouse, RGB), matching obsidian
+hl.window_rule({
+    name    = "utility-opacity",
+    match   = { class = "^(blueman-manager|\\.blueman-manager-wrapped|org\\.pulseaudio\\.pavucontrol|pavucontrol|waypaper|solaar|openrgb|org\\.openrgb\\.OpenRGB)$" },
     opacity = "0.8 0.8",
 })

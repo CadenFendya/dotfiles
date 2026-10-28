@@ -1,7 +1,7 @@
 {
   "layer": "top",
   "position": "top",
-  "spacing": 3,
+  "spacing": 0,
   "height": 1,
   "margin-top": 0,
   "margin-left": 0,
@@ -9,6 +9,7 @@
 
   "modules-left": ["hyprland/workspaces","custom/cpucat"],
   "modules-right": [
+    "group/tray",
     "bluetooth",
     "wireplumber",
     "battery",
@@ -27,8 +28,8 @@
   },
 
   "mpris": {
-    "format": "  {artist} - {title} ",
-    "format-paused": " 󰐊 {artist} - {title} ",
+    "format": "  {artist} - {title}",
+    "format-paused": "󰐊  {artist} - {title}",
     "max-length": 37,
     "tooltip": true,
     "player": "spotify"
@@ -41,11 +42,28 @@
 "custom/cpucat": {
     "exec":"~/.config/waybar/scripts/catloop.sh"
 },
+  // The real tray is kept running (it hosts the tray icons) but tucked into a
+  // drawer that never opens; the chevron shows the icons in a flyout instead.
+  "group/tray": {
+    "orientation": "horizontal",
+    "drawer": {
+      "click-to-reveal": true
+    },
+    "modules": ["custom/tray-toggle", "tray"]
+  },
+
+  "custom/tray-toggle": {
+    "format": "<span size='large'>󰅃</span>",
+    "tooltip-format": "Show hidden icons",
+    "on-click": "~/.config/waybar/scripts/flyout.py tray"
+  },
+
   "wireplumber": {
     "scroll-step": 5,
-    "format": " {icon} {volume}%",
-    "format-muted": "󰝟 muted",
-    "on-click": "pavucontrol",
+    "format": "<span size='large'>{icon}</span>",
+    "format-muted": "<span size='large'>󰝟</span>",
+    "tooltip-format": "{volume}% · {node_name}",
+    "on-click": "~/.config/waybar/scripts/flyout.py volume",
     "format-icons": {
       "default": ["󰕿", "󰖀", "󰕾"],
       "headphones": "󰋋",
@@ -55,25 +73,25 @@
 
 
   "bluetooth": {
-    "format": "󰂯 {status}",
-    "format-on": "󰂯",
-    "format-off": "󰂲",
-    "format-disabled": "󰂲",
-    "format-connected": "󰂱 {device_alias}",
-    "format-connected-battery": "󰂱 {device_alias} {device_battery_percentage}%",
+    "format": "<span size='large'>󰂯</span> {status}",
+    "format-on": "<span size='large'>󰂯</span>",
+    "format-off": "<span size='large'>󰂲</span>",
+    "format-disabled": "<span size='large'>󰂲</span>",
+    "format-connected": "<span size='large'>󰂱</span> {device_alias}",
+    "format-connected-battery": "<span size='large'>󰂱</span> {device_alias} {device_battery_percentage}%",
     "tooltip-format": "{controller_alias}\t{controller_address}\n{num_connections} connected",
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-    "on-click": "blueman-manager",
+    "on-click": "~/.config/waybar/scripts/flyout.py bluetooth",
     "on-click-right": "bluetoothctl power toggle"
   },
 
   "battery": {
     "states": { "warning": 30, "critical": 15 },
-    "format": "{icon} {capacity}% ",
-    "format-charging": "󰂄 {capacity}% ",
-    "format-plugged": "󱟦 {capacity}% ",
-    "format-full": "󰁹 {capacity}% ",
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󱟦 {capacity}%",
+    "format-full": "󰁹 {capacity}%",
     "format-icons": [
       "󰂎", "󰁺", "󰁻", "󰁼", "󰁽",
       "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"
@@ -81,6 +99,12 @@
   },
 
   "clock": {
-    "format": "{:%m-%d-%Y %H:%M} "
+    "format": "{:%m-%d-%Y %H:%M}"
+  },
+
+  "custom/power": {
+    "format": "<span size='large'>󰐥</span>",
+    "tooltip-format": "Power",
+    "on-click": "~/.config/waybar/scripts/flyout.py power"
   }
 }

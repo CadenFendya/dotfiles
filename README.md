@@ -1,6 +1,6 @@
 # dotfiles
 
-My Fedora + Hyprland setup (lavender rice: waybar, rofi, foot, fastfetch, fetch, plus LazyVim and btop).
+My Fedora + Hyprland setup (lavender rice: waybar, rofi, kitty, fastfetch, fetch, plus LazyVim and btop).
 
 ## Fresh install
 

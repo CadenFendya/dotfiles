@@ -47,7 +47,7 @@ if [ "${1:-}" != "--links-only" ]; then
 fi
 
 step "Linking configs"
-for d in hypr waybar rofi foot fastfetch fetch waypaper images cava nvim btop; do
+for d in hypr waybar rofi foot kitty fastfetch fetch waypaper images cava nvim btop; do
     link "config/$d" "$HOME/.config/$d"
 done
 link config/gtk3-bookmarks "$HOME/.config/gtk-3.0/bookmarks"
