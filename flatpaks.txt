@@ -2,3 +2,6 @@
 dev.vencord.Vesktop
 app.zen_browser.zen
 md.obsidian.Obsidian
+com.mojang.Minecraft
+com.modrinth.ModrinthApp
+com.lunarclient.LunarClient
