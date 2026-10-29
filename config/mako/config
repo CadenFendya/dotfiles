@@ -1,0 +1,31 @@
+# Matches waybar/rofi: translucent black, white Iosevka, square corners, no border
+
+# How long a notification stays up, in milliseconds (0 = never auto-close)
+default-timeout=5000
+# Close on timeout even if the app asks for a longer or permanent one
+ignore-timeout=1
+
+font=Iosevka Nerd Font 11
+text-color=#ffffff
+background-color=#00000099
+border-size=0
+border-radius=0
+progress-color=over #ffffff26
+
+anchor=top-right
+outer-margin=5
+margin=4
+padding=10,14
+width=360
+max-icon-size=40
+icon-location=left
+max-visible=5
+layer=overlay
+
+format=<b>%s</b>\n%b
+
+[urgency=low]
+text-color=#bbbbbb
+
+[urgency=critical]
+background-color=#ff7b722e

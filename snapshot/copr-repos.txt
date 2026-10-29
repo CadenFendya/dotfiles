@@ -1,0 +1,2 @@
+copr.fedorainfracloud.org/phracek/PyCharm
+copr.fedorainfracloud.org/sdegler/hyprland

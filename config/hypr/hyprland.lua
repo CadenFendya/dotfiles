@@ -138,7 +138,7 @@ hl.config({
         inactive_opacity = 1.0,
 
         -- Screen-wide color vibrance (set the level inside the shader)
-        screen_shader = os.getenv("HOME") .. "/.config/hypr/shaders/vibrance.frag",
+        -- screen_shader = os.getenv("HOME") .. "/.config/hypr/shaders/vibrance.frag",
 
         shadow = {
             enabled      = true,
@@ -426,6 +426,13 @@ hl.window_rule({
     name      = "games-immediate",
     match     = { class = "^(steam_app_.*|gamescope)$" },
     immediate = true,
+})
+
+-- Brawlhalla flickers with tearing on NVIDIA, so keep it vsynced
+hl.window_rule({
+    name      = "brawlhalla-no-tearing",
+    match     = { class = "^steam_app_291550$" },
+    immediate = false,
 })
 
 -- See-through system utilities (bluetooth, volume, wallpaper, mouse, RGB), matching obsidian

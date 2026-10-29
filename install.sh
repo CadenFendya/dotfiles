@@ -47,11 +47,22 @@ if [ "${1:-}" != "--links-only" ]; then
 fi
 
 step "Linking configs"
-for d in hypr waybar rofi foot kitty fastfetch fetch waypaper images cava nvim btop; do
+for d in hypr waybar rofi mako foot kitty fastfetch fetch waypaper images cava nvim btop; do
     link "config/$d" "$HOME/.config/$d"
 done
 link config/gtk3-bookmarks "$HOME/.config/gtk-3.0/bookmarks"
+link config/gtk-3.0/settings.ini "$HOME/.config/gtk-3.0/settings.ini"
+link config/gtk-4.0/settings.ini "$HOME/.config/gtk-4.0/settings.ini"
+link config/environment.d/90-proton-hidraw.conf "$HOME/.config/environment.d/90-proton-hidraw.conf"
+link config/starship.toml "$HOME/.config/starship.toml"
+link config/flameshot.ini "$HOME/.config/flameshot/flameshot.ini"
+link gitconfig "$HOME/.gitconfig"
+# Only the theme: the rest of ~/.config/spicetify is machine-specific (paths, backups)
+link config/spicetify/Themes/Mono "$HOME/.config/spicetify/Themes/Mono"
 link bin/setwall "$HOME/.local/bin/setwall"
+link bin/gdm-background "$HOME/.local/bin/gdm-background"
+link bin/pokefetch "$HOME/.local/bin/pokefetch"
+link bin/poke-sprites "$HOME/.local/bin/poke-sprites"
 link bashrc "$HOME/.bashrc"
 
 [ "${1:-}" = "--links-only" ] && { echo "Done (links only)."; exit 0; }

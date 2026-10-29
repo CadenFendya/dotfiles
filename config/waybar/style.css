@@ -105,6 +105,11 @@ tooltip label {
 #custom-launcher {
 }
 
+#image.greninja {
+  padding-left: 5px;
+  padding-right: 8px;
+}
+
 #custom-cpucat,
 #custom-cpucat * {
   font-family: "Waycat", monospace;

@@ -1,0 +1,45 @@
+#!/bin/bash
+# Usage: gdm-background [/path/to/image]
+# Sets a blurred image as the GDM login screen background.
+# Defaults to the wallpaper swww is showing. Re-run after gnome-shell updates.
+set -e
+img=${1:-$(swww query | sed -n 's/.*image: //p' | head -1)}
+img=$(realpath "$img")
+theme=/usr/share/gnome-shell/gnome-shell-theme.gresource
+work=$(mktemp -d)
+trap 'rm -rf "$work"' EXIT
+
+command -v glib-compile-resources >/dev/null || sudo dnf install -y glib2-devel
+
+# Unpack the stock theme (from the backup, so re-runs start clean)
+[ -f "$theme.orig" ] || sudo cp "$theme" "$theme.orig"
+python3 - "$theme.orig" "$work" <<'EOF'
+import sys
+from gi.repository import Gio
+r = Gio.Resource.load(sys.argv[1])
+prefix = '/org/gnome/shell/theme/'
+for name in r.enumerate_children(prefix, 0):
+    with open(f'{sys.argv[2]}/{name}', 'wb') as f:
+        f.write(r.lookup_data(prefix + name, 0).get_data())
+EOF
+
+# Fill 1920x1080, blur and darken a bit like GNOME's lock screen
+magick "$img" -resize 1920x1080^ -gravity center -extent 1920x1080 \
+    -blur 0x30 -modulate 70 "$work/login-bg.jpg"
+
+for css in "$work"/gnome-shell-{dark,light}.css; do
+    sed -i '/^#lockDialogGroup {/,/}/c\#lockDialogGroup {\n  background: #222226 url("resource:///org/gnome/shell/theme/login-bg.jpg");\n  background-size: cover;\n  background-position: center; }' "$css"
+done
+
+{
+    echo '<?xml version="1.0" encoding="UTF-8"?>'
+    echo '<gresources><gresource prefix="/org/gnome/shell/theme">'
+    for f in "$work"/*; do [ "${f##*.}" = xml ] || echo "<file>${f##*/}</file>"; done
+    echo '</gresource></gresources>'
+} > "$work/theme.gresource.xml"
+glib-compile-resources --sourcedir="$work" --target="$work/theme.gresource" "$work/theme.gresource.xml"
+
+sudo install -m 644 "$work/theme.gresource" "$theme"
+sudo restorecon "$theme"
+echo "GDM background set to blurred $img (shows at next login screen)"
+echo "Undo: sudo cp $theme.orig $theme"

@@ -2,12 +2,12 @@
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
+  . /etc/bashrc
 fi
 
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+  PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 export PATH
 
@@ -16,18 +16,19 @@ export PATH
 
 # User specific aliases and functions
 if [ -d ~/.bashrc.d ]; then
-    for rc in ~/.bashrc.d/*; do
-        if [ -f "$rc" ]; then
-            . "$rc"
-        fi
-    done
+  for rc in ~/.bashrc.d/*; do
+    if [ -f "$rc" ]; then
+      . "$rc"
+    fi
+  done
 fi
 unset rc
 
-# Animated fetch on terminal start (interactive terminals only)
-if [[ $- == *i* && -t 0 && -t 1 ]] && command -v fetch >/dev/null; then
-    fetch
+# Animated pokemon fastfetch on terminal start (interactive terminals only).
+# Run `poke-sprites` once to download the sprites; the old spinning `fetch` is still installed.
+if [[ $- == *i* && -t 0 && -t 1 ]] && command -v pokefetch >/dev/null; then
+  pokefetch 658
 fi
 
-# Minimal prompt: current dir + arrow (blue / purple from the kitty theme)
-PS1='\[\e[34m\]\w \[\e[35m\]❯\[\e[0m\] '
+# Minimal prompt: current dir + arrow (both blue from the kitty theme)
+PS1='\[\e[34m\]\w \[\e[34m\]❯\[\e[0m\] '

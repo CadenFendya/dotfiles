@@ -1,0 +1,72 @@
+/* Mono: square, flat, Iosevka, to match the rest of the rice */
+
+:root {
+    --font-family: "Iosevka Nerd Font", "Iosevka", monospace;
+}
+
+body,
+body *:not([class*="icon"]):not(svg):not(path) {
+    font-family: var(--font-family) !important;
+    letter-spacing: normal !important;
+}
+
+/* Square corners everywhere (panels, cards, buttons, images, inputs) */
+*,
+*::before,
+*::after {
+    border-radius: 0 !important;
+}
+
+/* Flat panels separated by thin #333 lines instead of rounded gaps */
+.Root__nav-bar,
+.Root__main-view,
+.Root__right-sidebar,
+.Root__now-playing-bar {
+    background-color: #000000 !important;
+}
+
+.Root__main-view,
+.Root__right-sidebar {
+    border-left: 1px solid #333333;
+}
+
+.Root__now-playing-bar {
+    border-top: 1px solid #333333;
+}
+
+/* No gradient tint behind playlist/album headers */
+.main-entityHeader-backgroundColor,
+.main-actionBarBackground-background,
+.main-entityHeader-overlay,
+.main-home-homeHeader,
+.before-scroll-node > div {
+    background: #000000 !important;
+    background-image: none !important;
+}
+
+/* Hover/selected rows use the same translucent white as rofi */
+.main-trackList-trackListRow:hover,
+.main-trackList-trackListRow:focus-within {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.main-trackList-trackListRow[aria-selected="true"],
+.main-trackList-selected {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* White play button gets a black icon */
+.main-playButton-PlayButton svg,
+.encore-bright-accent-set svg,
+.main-playPauseButton svg {
+    fill: #000000;
+}
+
+/* Thin, quiet scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333333 !important;
+}

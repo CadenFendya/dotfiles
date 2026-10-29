@@ -17,6 +17,7 @@ firefox
 thunderbird
 code
 flameshot
+ffmpeg-free
 pavucontrol
 blueman
 fastfetch
@@ -47,3 +48,4 @@ curl
 tar
 xz
 fontconfig
+glib2-devel

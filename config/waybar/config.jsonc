@@ -7,7 +7,7 @@
   "margin-left": 0,
   "margin-right": 0,
 
-  "modules-left": ["hyprland/workspaces","custom/cpucat"],
+  "modules-left": ["hyprland/workspaces","image#greninja","custom/greninja"],
   "modules-right": [
     "group/tray",
     "bluetooth",
@@ -39,8 +39,16 @@
     "icon-size": 16,
     "spacing": 6
   },
-"custom/cpucat": {
-    "exec":"~/.config/waybar/scripts/catloop.sh"
+// Animated white Greninja: greninja.sh swaps the frame, the image module redraws it.
+// (The old cpucat module and catloop.sh are still around if you want the cat back.)
+"image#greninja": {
+    "path": "/run/user/1000/waybar-greninja.png",
+    "size": 28,
+    "interval": 0.05,
+    "tooltip": false
+},
+"custom/greninja": {
+    "exec": "~/.config/waybar/scripts/greninja.sh"
 },
   // The real tray is kept running (it hosts the tray icons) but tucked into a
   // drawer that never opens; the chevron shows the icons in a flyout instead.

@@ -1,0 +1,13 @@
+claude
+fetch
+gdm-background
+lazygit
+opendrop
+pokefetch
+poke-sprites
+setwall
+spicetify
+starship
+uv
+uvx
+xodus-nexus

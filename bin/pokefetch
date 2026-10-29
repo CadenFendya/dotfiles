@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# pokefetch — fastfetch with a random ANIMATED pokemon on the left.
+# Bash port of the zsh function in github.com/diegoMalagrida/pocket-dots.
+# Sprites come from `poke-sprites` (~/.cache/pokeanim/<n>.gif). Needs kitty
+# (kitten icat); anywhere else it falls back to plain fastfetch.
+#   pokefetch            random pokemon
+#   pokefetch 25         a specific dex number (also: POKE_FIJO=25)
+
+adir="$HOME/.cache/pokeanim"
+shopt -s nullglob
+gifs=("$adir"/*.gif)
+
+if (( ! ${#gifs[@]} )) || [[ $TERM != xterm-kitty ]] || ! command -v kitten >/dev/null; then
+    exec fastfetch
+fi
+
+gif=${gifs[RANDOM % ${#gifs[@]}]}
+pick=${1:-${POKE_FIJO:-}}
+[[ -n $pick && -f $adir/$pick.gif ]] && gif=$adir/$pick.gif
+
+# Pre-scaled copy: nearest-neighbour (crisp pixel art) on a fixed 200x168 canvas,
+# full-canvas frames so kitten icat leaves no trails. Cached after the first run.
+play=$gif
+big="$adir/.box/${gif##*/}"
+if [[ ! -f $big ]]; then
+    mkdir -p "$adir/.box"
+    ffmpeg -y -i "$gif" -filter_complex 'fps=15,scale=w=200:h=168:force_original_aspect_ratio=decrease:flags=neighbor,format=rgba,pad=200:ih:(200-iw)/2:0:color=#00000000,split[s0][s1];[s0]palettegen=reserve_transparent=1[p];[s1][p]paletteuse=alpha_threshold=128:diff_mode=none' -gifflags -offsetting "$big" >/dev/null 2>&1
+fi
+[[ -f $big ]] && play=$big
+
+# Info text, minus the CPU/GPU clock noise so it fits beside the sprite.
+mapfile -t info < <(fastfetch --logo none 2>/dev/null \
+    | sed -E 's/ \([0-9+]+\) @ [0-9.]+ GHz//; s/ @ [0-9.]+ GHz//; s/ \[(Integrated|Discrete)\]//')
+n=${#info[@]}
+indent=32
+
+# Reserve the rows first so the screen can't scroll after the cursor is saved.
+for ((i = 0; i < n; i++)); do echo; done
+printf '\033[%dA' "$n"
+printf '\0337'                     # save cursor
+printf '\033[?7l'                  # no autowrap: long lines get cut instead of spilling under the sprite
+for ln in "${info[@]}"; do printf '%*s%s\n' "$indent" '' "$ln"; done
+printf '\033[?7h'
+printf '\0338\033[1B'              # back to the top, sprite one row down
+kitten icat --align left --loop -1 "$play" 2>/dev/null
+printf '\0338\033[%dB' "$n"        # below the info

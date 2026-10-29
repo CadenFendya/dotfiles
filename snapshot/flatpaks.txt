@@ -1,0 +1,9 @@
+app.zen_browser.zen	stable	flathub
+com.bitwarden.desktop	stable	flathub
+com.lunarclient.LunarClient	stable	flathub
+com.modrinth.ModrinthApp	stable	flathub
+com.mojang.Minecraft	stable	flathub
+com.spotify.Client	stable	flathub
+dev.vencord.Vesktop	stable	flathub
+md.obsidian.Obsidian	stable	flathub
+org.vinegarhq.Sober	stable	flathub
